@@ -32,16 +32,16 @@ class MovieListSerializer(serializers.ModelSerializer):
 
 
 class MoviesReviewsListSerializer(serializers.ModelSerializer):
-    rating = serializers.SerializerMethodField()
-    reviews = serializers.SerializerMethodField()
+
+
     class Meta:
         model = Movie
-        fields = ' title rating reviews '.split()
+        fields = ' title  '.split()
 
-    def get_reviews(self,obj_movie):
-        return [review.text for review in obj_movie.reviews.all()]
-
-    def get_rating(self, obj_movie):
-        for rate in obj_movie.rating.all():
-            average = sum(rate.rating) / len(rate.rating)
-            return round(average, 2)
+    # def get_reviews(self,obj_movie):
+    #     return [review.text for review in obj_movie.reviews.all()]
+    #
+    # def get_rating(self, obj_movie):
+    #     for rate in obj_movie.rating.all():
+    #         average = sum(rate.rating) / len(rate.rating)
+    #         return round(average, 2)
