@@ -5,13 +5,51 @@ from.models import *
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
+from rest_framework.generics import (ListAPIView,
+                                     CreateAPIView,
+                                     ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView,
+                                     )
+from rest_framework.pagination import PageNumberPagination
 
 
+from rest_framework.viewsets import ModelViewSet
 
+
+class DirectorListAPIView(ListCreateAPIView):
+    queryset = Director.objects.all()
+    serializer_class = DirectorListSerializer
+
+
+class DirectorUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Director.objects.all()
+    serializer_class = DirectorListSerializer
+    lookup_field = 'id'
+
+
+class ReviewlistAPIView(ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewListSerializer
+
+
+class ReviewUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewListSerializer
+    lookup_field = 'id'
+
+
+class MovieListAPIView(ListCreateAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieListSerializer
+
+class MovieUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieListSerializer
+    lookup_field = 'id '
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def directors_view(request):
     if request.method == 'GET':
         directors = Director.objects.all()
@@ -52,7 +90,7 @@ def get_one_director_view(request, id):
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def reviews_view(request):
     if request.method == 'GET':
         reviews = Review.objects.all()
@@ -98,7 +136,7 @@ def get_one_review_view(request,id):
 
 
 @api_view(['GET','POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def movies_view(request):
     if request.method == 'GET':
         movies = Movie.objects.all()
